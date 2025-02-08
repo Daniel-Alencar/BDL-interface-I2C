@@ -24,8 +24,16 @@ Este projeto tem como objetivo interagir com o periférico display ssd1306 da Bi
 
 ## Vídeo de Demonstração
 ```bash
-   Link: 
+   Link: https://youtube.com/shorts/ONkFn7slkMI
 ```
+
+## Adendos
+
+Usei o programa display/make_font.c para auxiliar na implementação das letras minúsculas em font.h.
+
+Inicialmente para desenhar as letras minúsculas, me utilizei do site [piskel](https://www.piskelapp.com/p/create/sprite). Onde pude ter mais liberdade de como exatamente queria as letras minúsculas do meu programa. 
+
+Depois, defini todas essas letras no arquivo display/make_font.c, onde cada letra é representada por uma matriz de valores inteiros 0 e 1. Esse programa me ajudou a converter de forma adequada todos os valores em hexadecimal, para complementar os caracteres disponíveis para uso no display ssd1306.
 
 ## Licença
 Este projeto é licenciado sob a licença MIT – consulte o arquivo LICENSE para mais detalhes.
