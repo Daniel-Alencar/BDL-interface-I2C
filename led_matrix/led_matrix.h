@@ -97,7 +97,6 @@ void draw(
         );
         pio_sm_put_blocking(pio, sm, led_value);
     }
-    bin_printf(led_value);
 }
 
 void animate(

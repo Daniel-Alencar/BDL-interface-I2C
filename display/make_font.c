@@ -272,7 +272,8 @@ void convert_frame_to_hex(int frames[][ROWS][COLS], int num_frames) {
         for (int j = 0; j < COLS; j++) {
             unsigned char value = 0;
             for (int i = 0; i < ROWS; i++) {
-                value = (value << 1) | frames[f][ROWS - 1 - i][j]; // Invertendo as linhas
+                // Invertendo as linhas
+                value = (value << 1) | frames[f][ROWS - 1 - i][j]; 
             }
             hex_values[j] = value;
         }

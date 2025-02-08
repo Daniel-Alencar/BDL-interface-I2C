@@ -1,7 +1,10 @@
 #include "ssd1306.h"
 #include "font.h"
 
-void ssd1306_init(ssd1306_t *ssd, uint8_t width, uint8_t height, bool external_vcc, uint8_t address, i2c_inst_t *i2c) {
+void ssd1306_init(ssd1306_t *ssd, 
+  uint8_t width, uint8_t height, 
+  bool external_vcc, uint8_t address, i2c_inst_t *i2c
+) {
   ssd->width = width;
   ssd->height = height;
   ssd->pages = height / 8U;
@@ -82,7 +85,8 @@ void ssd1306_fill(ssd1306_t *ssd, bool value) {
   uint8_t byte = value ? 0xFF : 0x00;
   for (uint8_t i = 1; i < ssd->bufsize; ++i)
     ssd->ram_buffer[i] = byte;
-}*/
+}
+*/
 
 void ssd1306_fill(ssd1306_t *ssd, bool value) {
     // Itera por todas as posições do display
@@ -93,9 +97,11 @@ void ssd1306_fill(ssd1306_t *ssd, bool value) {
     }
 }
 
-
-
-void ssd1306_rect(ssd1306_t *ssd, uint8_t top, uint8_t left, uint8_t width, uint8_t height, bool value, bool fill) {
+void ssd1306_rect(
+  ssd1306_t *ssd, 
+  uint8_t top, uint8_t left, uint8_t width, uint8_t height, 
+  bool value, bool fill
+) {
   for (uint8_t x = left; x < left + width; ++x) {
     ssd1306_pixel(ssd, x, top, value);
     ssd1306_pixel(ssd, x, top + height - 1, value);
@@ -114,7 +120,11 @@ void ssd1306_rect(ssd1306_t *ssd, uint8_t top, uint8_t left, uint8_t width, uint
   }
 }
 
-void ssd1306_line(ssd1306_t *ssd, uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1, bool value) {
+void ssd1306_line(
+  ssd1306_t *ssd, 
+  uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1, 
+  bool value
+) {
     int dx = abs(x1 - x0);
     int dy = abs(y1 - y0);
 
@@ -124,9 +134,11 @@ void ssd1306_line(ssd1306_t *ssd, uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1
     int err = dx - dy;
 
     while (true) {
-        ssd1306_pixel(ssd, x0, y0, value); // Desenha o pixel atual
+        // Desenha o pixel atual
+        ssd1306_pixel(ssd, x0, y0, value);
 
-        if (x0 == x1 && y0 == y1) break; // Termina quando alcança o ponto final
+        // Termina quando alcança o ponto final
+        if (x0 == x1 && y0 == y1) break; 
 
         int e2 = err * 2;
 
@@ -141,7 +153,6 @@ void ssd1306_line(ssd1306_t *ssd, uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1
         }
     }
 }
-
 
 void ssd1306_hline(ssd1306_t *ssd, uint8_t x0, uint8_t x1, uint8_t y, bool value) {
   for (uint8_t x = x0; x <= x1; ++x)
@@ -197,4 +208,48 @@ void ssd1306_draw_string(ssd1306_t *ssd, const char *str, uint8_t x, uint8_t y)
       break;
     }
   }
+}
+
+void setup_display_oled() {
+  // I2C Initialisation. Using it at 400Khz.
+  i2c_init(I2C_PORT, 400 * 1000);
+  // Set the GPIO pin function to I2C
+  gpio_set_function(I2C_SDA, GPIO_FUNC_I2C); 
+  // Set the GPIO pin function to I2C
+  gpio_set_function(I2C_SCL, GPIO_FUNC_I2C); 
+  // Pull up the data line
+  gpio_pull_up(I2C_SDA); 
+  // Pull up the clock line
+  gpio_pull_up(I2C_SCL);
+
+
+  // Inicializa o display
+  ssd1306_init(&ssd, WIDTH, HEIGHT, false, endereco, I2C_PORT); 
+  // Configura o display
+  ssd1306_config(&ssd); 
+  // Envia os dados para o display
+  ssd1306_send_data(&ssd);
+}
+
+void display_fill(bool color) {
+  // Limpa o display
+  ssd1306_fill(&ssd, color);
+}
+
+void display_draw_rectangle(
+  uint8_t top, uint8_t left, uint8_t width, uint8_t height, 
+  bool color, bool color_fill
+) {
+  // Desenha um retângulo
+  ssd1306_rect(&ssd, top, left, width, height, color, !color_fill);  
+}
+
+void display_draw_string(const char *string, uint8_t x, uint8_t y) {
+  // Desenha uma string
+  ssd1306_draw_string(&ssd, string, x, y);
+}
+
+void display_send_data() {
+  // Envia para o display
+  ssd1306_send_data(&ssd);
 }
