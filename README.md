@@ -6,11 +6,11 @@ Este projeto tem como objetivo interagir com o periférico display ssd1306 da Bi
 ## Como Executar
 1. Clone o repositório:
    ```bash
-   git clone https://github.com/Daniel-Alencar/BDL-interface-i2c
+   git clone https://github.com/Daniel-Alencar/BDL-interface-I2C
    ```
 2. Navegue até o diretório do projeto:
    ```bash
-   cd BDL-interface-i2c
+   cd BDL-interface-I2C
    ```
 3. Abra o projeto no VS Code.
   
