@@ -1,3 +1,5 @@
+#include <ctype.h>
+
 void extract_numbers(const char *str, int *numbers, int *count) {
     // Inicializa a contagem de números encontrados
     *count = 0;

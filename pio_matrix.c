@@ -10,15 +10,9 @@
 #include "buttons/buttons.h"
 #include "led_rgb/led_rgb.h"
 
-// Seleciona a UART0
-#define UART_ID uart0 
-// Define a taxa de transmissão
-#define BAUD_RATE 115200 
-#define UART_TX_PIN 0 // Pino GPIO usado para TX
-#define UART_RX_PIN 1 // Pino GPIO usado para RX
-
 // Armazena o tempo do último evento (em microssegundos)
 static volatile uint32_t last_time = 0;
+
 static volatile bool state_led_green = false;
 static volatile bool state_led_blue = false;
 static volatile char message_led_green[100];
