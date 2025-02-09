@@ -71,6 +71,25 @@ int main() {
         if(character != '.') {
           buffer[index++] = character;
 
+          int count;
+          int numbersInString[40];
+          extract_numbers(string, numbersInString, &count);
+
+          if(count > 0) {
+            draw(numbers[numbersInString[0]]);
+          }
+
+          // Limpa o display
+          display_fill(!color);
+          // Desenha um retângulo
+          display_draw_rectangle(3, 3, 122, 58, !color, color);  
+          // Desenha uma string
+          display_draw_string(string, 8, 10);
+          display_draw_string(message_led_green, 8, 40);
+          display_draw_string(message_led_blue, 8, 55);
+          // Atualiza o display 
+          display_send_data();
+
           // Garante que o índice não ultrapasse o tamanho do buffer
           if (index >= sizeof(buffer) - 1) {
             // Reinicia o índice se o buffer estiver cheio
@@ -88,6 +107,7 @@ int main() {
             int i;
             for(i = 0; i < count; i++) {
               draw(numbers[numbersInString[i]]);
+              sleep_ms(100);
             }
           }
 

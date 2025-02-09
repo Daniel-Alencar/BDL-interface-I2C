@@ -12,7 +12,7 @@ Este projeto tem como objetivo interagir com o periférico display ssd1306 da Bi
    ```bash
    cd BDL-interface-I2C
    ```
-3. Abra o projeto no VS Code.
+3. Abra o projeto no VS Code (você pode usar o comando "code ." se quiser).
   
 4. Compile e execute o projeto usando a placa BitDogLab.
 
